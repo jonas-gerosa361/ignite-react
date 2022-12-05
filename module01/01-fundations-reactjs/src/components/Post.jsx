@@ -1,8 +1,36 @@
-export function Post({author, content}) {
+import styles from "./Posts.module.scss"
+
+export function Post() {
   return (
-    <>
-      <strong>{author}</strong>
-      <p>{content}</p>
-    </>
+    <article className={styles.post}>
+      <header>
+        <div className={styles.author}>
+          <img src="https://github.com/jonas-gerosa361.png" alt="" />
+
+          <div className={styles.authorInfo}>
+            <strong>Jonas Gerosa</strong>
+            <span>Web Developer</span>
+          </div>
+        </div>
+
+        <time title="May 11th" dateTime="20222-05-11 08:13:30">Posted 1h ago</time>
+      </header>
+
+      <div className={styles.content}>
+        <p>Lfoaijfoafasoi afssa</p>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestias maxime voluptates quis veniam vitae  unde enim laborum, velit, eligendi dolore nesciunt? Nemo quo labore veniam voluptates ipsa!</p>
+        <p><a href="#">Lorem ipsum dolor sit amet</a></p>
+      </div>
+
+      <form className={styles.commentForm}>
+        <strong>Leave your feedback:</strong>
+
+        <textarea
+          placeholder="Leave a comment"
+        />
+
+        <button type="submit">Publish</button>
+      </form>
+    </article>
   );
 }

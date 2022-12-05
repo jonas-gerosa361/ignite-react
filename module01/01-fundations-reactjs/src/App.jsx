@@ -1,7 +1,7 @@
 import { Header } from "./components/Header";
 import { Post } from "./components/Post";
 
-import './global.css'
+import './components/core/global.module.scss'
 import styles from './App.module.css'
 import { Sidebar } from "./components/Sidebar";
 
