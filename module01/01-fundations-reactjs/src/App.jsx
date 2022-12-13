@@ -5,6 +5,18 @@ import './components/core/global.module.scss'
 import styles from './App.module.css'
 import { Sidebar } from "./components/Sidebar";
 
+const posts = [
+  {
+    id: 1,
+    author: {
+      avatarUrl: "https://github.com/jonas-gerosa361.png",
+      name: "Jonas Gerosa",
+      role: "Web Developer"
+    },
+    content: '',
+  },
+];
+
 export function App() {
   return (
     <>
