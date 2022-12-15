@@ -1,11 +1,29 @@
 import { Play } from "phosphor-react";
 import { CountdownContainer, FormContainer, HomeContainer, MinutesDurationInput, Separator, StartCountdownButton, TaskINput } from "./styles";
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as zod from 'zod'
+
+const newCycleFormValidationSchema = zod.object({
+  task: zod.string().min(1, 'Insert the task\'s name'),
+  minutesAmount: zod.number().min(5).max(60),
+})
 
 export function Home() {
+  const { register, handleSubmit, watch, formState } = useForm({
+    resolver: zodResolver(newCycleFormValidationSchema),
+  });
+
+  function handleCreateNewCycle(data: any) {
+    console.log(data);
+  }
+
+  const isSubmitDisabled = !watch('task');
+
   return (
     <HomeContainer>
-      <FormContainer>
-        <div>
+      <form onSubmit={handleSubmit(handleCreateNewCycle)}>
+        <FormContainer>
           <label htmlFor="task">Work to be done: </label>
 
           <TaskINput
@@ -13,6 +31,7 @@ export function Home() {
             list="task-suggestions"
             type="text"
             placeholder="Enter the task's name"
+            {...register('task')}
           />
 
           <datalist id="task-suggestions">
@@ -29,10 +48,11 @@ export function Home() {
             step={5}
             min={5}
             max={60}
+            {...register('minutesAmount', { valueAsNumber: true})}
           />
 
           <span> minutes.</span>
-        </div>
+        </FormContainer>
 
         <CountdownContainer>
           <span>0</span>
@@ -42,11 +62,11 @@ export function Home() {
           <span>0</span>
         </CountdownContainer>
 
-        <StartCountdownButton type="submit">
+        <StartCountdownButton disabled={isSubmitDisabled} type="submit">
           <Play size={24} />
           Start
         </StartCountdownButton>
-      </FormContainer>
+      </form>
     </HomeContainer>
   );
 }
