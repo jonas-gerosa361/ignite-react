@@ -1,9 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { CountdownContainer, Separator } from "./styles";
-import { CyclesContext } from "../..";
 import { differenceInSeconds } from "date-fns";
+import { CyclesContext } from "../../../../contexts/CyclesContextProvider";
 
-export function Contdown() {
+interface CountDownProps {
+  resetForm: () => void
+}
+
+export function Contdown({resetForm}: CountDownProps) {
   const { activeCycle, setCycleAsFinished, amountSecondsPassed, handleSecondsPassed } = useContext(CyclesContext);
   const totalSeconds = activeCycle ? activeCycle.minutesAmount * 60 : 0;
 
@@ -35,6 +39,7 @@ export function Contdown() {
 
         handleSecondsPassed(totalSeconds);
         clearInterval(interval)
+        resetForm();
         return;
       }
 
